@@ -1,6 +1,6 @@
 package ar.edu.unahur.obj2.semillasAlViento
 
-abstract class Planta(val anioObtencionSemilla: Int, var altura: Float) {
+abstract class Planta(val anioObtencionSemilla: Int, var altura: Float) {//En el enunciado dice "asumiremos que la altura nunca cambiará",MUTACIONES CONTROLADAS
   fun esFuerte() = this.horasDeSolQueTolera() > 10
 
   fun parcelaTieneComplicaciones(parcela: Parcela) =
@@ -14,7 +14,7 @@ class Menta(anioObtencionSemilla: Int, altura: Float) : Planta(anioObtencionSemi
   override fun horasDeSolQueTolera() = 6
   override fun daSemillas() = this.esFuerte() || altura > 0.4
 }
-
+//Una soja transgenica deberia ser una clase que hereda de Soja.DESACOPLAMIENTO.
 class Soja(anioObtencionSemilla: Int, altura: Float, val esTransgenica: Boolean) : Planta(anioObtencionSemilla, altura) {
   override fun horasDeSolQueTolera(): Int  {
     // ¡Magia de Kotlin! El `when` es como un `if` pero más poderoso:
@@ -30,7 +30,7 @@ class Soja(anioObtencionSemilla: Int, altura: Float, val esTransgenica: Boolean)
 
 
   override fun daSemillas(): Boolean  {
-    if (this.esTransgenica) {
+    if (this.esTransgenica) {//Esta función tiene que resolver muchas tareas,COHESION
       return false
     }
 
