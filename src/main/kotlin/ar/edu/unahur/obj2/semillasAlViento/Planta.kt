@@ -1,21 +1,18 @@
 package ar.edu.unahur.obj2.semillasAlViento
 
-abstract class Planta(val anioObtencionSemilla: Int, var altura: Float) {//En el enunciado dice "asumiremos que la altura nunca cambiará",MUTACIONES CONTROLADAS
+abstract class Planta(val anioObtencionSemilla: Int, val altura: Float) {
   fun esFuerte() = this.horasDeSolQueTolera() > 10
-
-  fun parcelaTieneComplicaciones(parcela: Parcela) =
-    parcela.plantas.any { it.horasDeSolQueTolera() < parcela.horasSolPorDia }
+  open fun daSemillas() = this.esFuerte()
 
   abstract fun horasDeSolQueTolera(): Int
-  abstract fun daSemillas(): Boolean
 }
 
 class Menta(anioObtencionSemilla: Int, altura: Float) : Planta(anioObtencionSemilla, altura) {
   override fun horasDeSolQueTolera() = 6
-  override fun daSemillas() = this.esFuerte() || altura > 0.4
+  override fun daSemillas() = super.daSemillas() || altura > 0.4
 }
-//Una soja transgenica deberia ser una clase que hereda de Soja.DESACOPLAMIENTO.
-class Soja(anioObtencionSemilla: Int, altura: Float, val esTransgenica: Boolean) : Planta(anioObtencionSemilla, altura) {
+
+open class Soja(anioObtencionSemilla: Int, altura: Float) : Planta(anioObtencionSemilla, altura) {
   override fun horasDeSolQueTolera(): Int  {
     // ¡Magia de Kotlin! El `when` es como un `if` pero más poderoso:
     // evalúa cada línea en orden y devuelve lo que está después de la flecha.
@@ -25,15 +22,16 @@ class Soja(anioObtencionSemilla: Int, altura: Float, val esTransgenica: Boolean)
       else          -> 9
     }
 
-    return if (esTransgenica) horasBase * 2 else horasBase
+    return horasBase
   }
 
 
   override fun daSemillas(): Boolean  {
-    if (this.esTransgenica) {//Esta función tiene que resolver muchas tareas,COHESION
-      return false
-    }
-
-    return this.esFuerte() || (this.anioObtencionSemilla > 2007 && this.altura > 1)
+    return super.daSemillas() || (this.anioObtencionSemilla > 2007 && this.altura > 1)
   }
+}
+
+class SojaTransgenica(anioObtencionSemilla: Int, altura: Float) :Soja(anioObtencionSemilla,altura) {
+  override fun daSemillas() = false
+  override fun horasDeSolQueTolera() = super.horasDeSolQueTolera() * 2
 }
