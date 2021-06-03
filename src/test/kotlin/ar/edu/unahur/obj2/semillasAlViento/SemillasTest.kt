@@ -4,6 +4,8 @@ import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 
 class SemillasTest : DescribeSpec({
@@ -123,19 +125,26 @@ class SemillasTest : DescribeSpec({
         }
     }
     describe("Testeo de Agricultor") {
-        describe("La parcela es Semillera?") {
-            val parcelaSemillera = Parcela(20, 1, 14)
+        describe("El Agricultor tiene parcelas Semilleras?") {
+            val parcelaSemillera = Parcela(20, 1, 5)
+            val parcelaNoSemillera = Parcela(20,1,5)
             val menta = Menta(2010, 1.7f)
             val soja = Soja(2009, 1.6f, false)
             val sojaTrasgenica = Soja(2010, 0.4f, true)
 
-            parcelaSemillera.plantar(menta)
-            parcelaSemillera.plantar(soja)
-//          No se puede testear si es semillera y plantar estrategicamente. ya que no se puede crear agricultor
-//            val agricultor = Agricultora(parcelaSemillera)
-//            it("es semillera") {
-//                agricultor.parcelasSemilleras()
-//            }
+            it("Hay 1 semillera") {
+                parcelaSemillera.plantar(menta)
+                parcelaSemillera.plantar(soja)
+                val agricultor = Agricultora(mutableListOf(parcelaSemillera))
+                agricultor.parcelasSemilleras().shouldContain(parcelaSemillera)
+            }
+            it("no hay semilleras") {
+                parcelaNoSemillera.plantar(menta)
+                parcelaNoSemillera.plantar(soja)
+                parcelaNoSemillera.plantar(sojaTrasgenica)
+                val agricultor = Agricultora(mutableListOf(parcelaNoSemillera))
+                agricultor.parcelasSemilleras().shouldBeEmpty()
+            }
         }
     }
 
