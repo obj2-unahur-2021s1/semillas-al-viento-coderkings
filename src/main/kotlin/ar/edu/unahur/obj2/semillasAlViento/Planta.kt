@@ -1,18 +1,18 @@
 package ar.edu.unahur.obj2.semillasAlViento
 
-abstract class Planta(val anioObtencionSemilla: Int, val altura: Float) {
+abstract class Planta(val anioObtencionSemilla: Int, val altura: Double) {
   fun esFuerte() = this.horasDeSolQueTolera() > 10
   open fun daSemillas() = this.esFuerte()
 
   abstract fun horasDeSolQueTolera(): Int
 }
 
-class Menta(anioObtencionSemilla: Int, altura: Float) : Planta(anioObtencionSemilla, altura) {
+class Menta(anioObtencionSemilla: Int, altura: Double) : Planta(anioObtencionSemilla, altura) {
   override fun horasDeSolQueTolera() = 6
   override fun daSemillas() = super.daSemillas() || altura > 0.4
 }
 
-open class Soja(anioObtencionSemilla: Int, altura: Float) : Planta(anioObtencionSemilla, altura) {
+open class Soja(anioObtencionSemilla: Int, altura: Double) : Planta(anioObtencionSemilla, altura) {
   override fun horasDeSolQueTolera(): Int  {
     // ¡Magia de Kotlin! El `when` es como un `if` pero más poderoso:
     // evalúa cada línea en orden y devuelve lo que está después de la flecha.
@@ -31,7 +31,7 @@ open class Soja(anioObtencionSemilla: Int, altura: Float) : Planta(anioObtencion
   }
 }
 
-class SojaTransgenica(anioObtencionSemilla: Int, altura: Float) :Soja(anioObtencionSemilla,altura) {
+class SojaTransgenica(anioObtencionSemilla: Int, altura: Double) :Soja(anioObtencionSemilla,altura) {
   override fun daSemillas() = false
   override fun horasDeSolQueTolera() = super.horasDeSolQueTolera() * 2
 }

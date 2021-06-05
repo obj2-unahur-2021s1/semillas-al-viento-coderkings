@@ -11,8 +11,8 @@ import io.kotest.matchers.shouldBe
 class SemillasTest : DescribeSpec({
     describe("Testeo de los tipos de plantas y sus funciones") {
         describe("Menta") {
-            val menta = Menta(2010, 1.7f)
-            val mentaNoDaSemillas = Menta(2008, 0.2f)
+            val menta = Menta(2010, 1.7)
+            val mentaNoDaSemillas = Menta(2008, 0.2)
             it("Horas de sol que tolera por dia = 6hs") {
                 menta.horasDeSolQueTolera().shouldBe(6)
             }
@@ -27,14 +27,14 @@ class SemillasTest : DescribeSpec({
             }
         }
         describe("Soja") {
-            val soja = Soja(2008, 0.2f)
-            val sojaConMasAltura = Soja(2007, 0.7f)
-            val sojaConMasDe1Metro = Soja(2009, 1.5f)
+            val soja = Soja(2008, 0.2)
+            val sojaConMasAltura = Soja(2007, 0.7)
+            val sojaConMasDe1Metro = Soja(2009, 1.5)
 
-            val sojaConObtencionReciente = Soja(2009, 2.2f)
-            val sojaConObtencionViejo = Soja(2002, 1.8f)
-            val sojaPequenia = Soja(2012, 0.6f)
-            val sojaViejoYchico = Soja(1996, 0.2f)
+            val sojaConObtencionReciente = Soja(2009, 2.2)
+            val sojaConObtencionViejo = Soja(2002, 1.8)
+            val sojaPequenia = Soja(2012, 0.6)
+            val sojaViejoYchico = Soja(1996, 0.2)
 
             it("Horas de sol que tolera, depende de su altura. opcion 1. 6hs") {
                 soja.horasDeSolQueTolera().shouldBe(6)
@@ -59,7 +59,7 @@ class SemillasTest : DescribeSpec({
             }
         }
         describe("Soja Trasgenica") {
-            val sojaTrasgenica = SojaTransgenica(2010, 0.4f)
+            val sojaTrasgenica = SojaTransgenica(2010, 0.4)
             it("Horas de sol que tolera, tolera el doble de hs, que una soja comun") {
                 sojaTrasgenica.horasDeSolQueTolera().shouldBe(12)
             }
@@ -89,9 +89,9 @@ class SemillasTest : DescribeSpec({
             val parcelaConComplicacion = Parcela(100, 50, 7)
             val parcelaSinComplicacion = Parcela(10, 20, 4)
 
-            val menta = Menta(2010, 1.7f)
-            val soja = Soja(2009, 1.5f)
-            val sojaTrasgenica = SojaTransgenica(2010, 0.4f)
+            val menta = Menta(2010, 1.7)
+            val soja = Soja(2009, 1.5)
+            val sojaTrasgenica = SojaTransgenica(2010, 0.4)
             it ("si tiene complicaciones, ya que menta, no soporta el sol de parcela") {
                 parcelaConComplicacion.plantar(menta)
                 parcelaConComplicacion.plantar(soja)
@@ -109,11 +109,11 @@ class SemillasTest : DescribeSpec({
        // Si intentaramos agregar una quinta planta, se superaría la cantidad máxima y nos arrojaría un error.
         describe("Agregar planta") {
             val parcela = Parcela(20, 1, 8)
-            val soja1 = Soja(2008,1f)
-            val soja2 = Soja(2009, 1.6f)
-            val soja3 = Soja(2007, 1.8f)
-            val soja4 = Soja(2010, 2.4f)
-            val menta = Menta(2010, 1.7f)
+            val soja1 = Soja(2008,1.2)
+            val soja2 = Soja(2009, 1.6)
+            val soja3 = Soja(2007, 1.8)
+            val soja4 = Soja(2010, 2.4)
+            val menta = Menta(2010, 1.7)
 
             it("Error, no puede agregar mas plantas") {
                 parcela.plantar(soja1)
@@ -128,9 +128,9 @@ class SemillasTest : DescribeSpec({
         describe("El Agricultor tiene parcelas Semilleras?") {
             val parcelaSemillera = Parcela(20, 1, 5)
             val parcelaNoSemillera = Parcela(20,1,5)
-            val menta = Menta(2010, 1.7f)
-            val soja = Soja(2009, 1.6f)
-            val sojaTrasgenica = SojaTransgenica(2010, 0.4f)
+            val menta = Menta(2010, 1.7)
+            val soja = Soja(2009, 1.6)
+            val sojaTrasgenica = SojaTransgenica(2010, 0.4)
 
             it("Hay 1 semillera") {
                 parcelaSemillera.plantar(menta)
@@ -153,6 +153,4 @@ class SemillasTest : DescribeSpec({
             }
         }
     }
-
-
 })
